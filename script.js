@@ -9,11 +9,11 @@ const bowls = [
   },
   {
     name: "Southern",
-    ingredients: ["Roots Rice", "Kale", "Chickpeas", "Cucumbers", "Grape Tomatoes", "Red Onion", "Pita Chips", "Feta"]
+    ingredients: ["Roots Rice", "Kale", "Chickpeas", "Cucumbers", "Grape Tomatoes", "Red Onions", "Pita Chips", "Feta"]
   },
   {
     name: "Corner Cobb",
-    ingredients: ["Arcadian", "Kale", "Roots Rice", "Sweet Potato", "Corn", "Red Onion", "Cucumbers", "Avocado", "Hard Boiled Egg"]
+    ingredients: ["Arcadian", "Kale", "Roots Rice", "Sweet Potato", "Corn", "Red Onions", "Cucumbers", "Avocado", "Hard Boiled Egg"]
   },
   {
     name: "Balboa",
@@ -25,7 +25,7 @@ const bowls = [
   },
   {
     name: "Tamari",
-    ingredients: ["Brown Rice", "Kale", "Broccoli", "Red Onion", "Carrots", "Jalapenos", "Cabbage", "Almonds"]
+    ingredients: ["Brown Rice", "Kale", "Broccoli", "Red Onions", "Carrots", "Jalapenos", "Cabbage", "Almonds"]
   },
   {
     name: "Mad Bowl",
@@ -37,7 +37,7 @@ const bowls = [
   },
   {
     name: "Apollo",
-    ingredients: ["Brown Rice", "Spinach", "Chickpeas", "Cucumbers", "Grape Tomatoes", "Red Onion", "Pita Chips", "Feta"]
+    ingredients: ["Brown Rice", "Spinach", "Chickpeas", "Cucumbers", "Grape Tomatoes", "Red Onions", "Pita Chips", "Feta"]
   }
 ];
 
