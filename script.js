@@ -60,6 +60,10 @@ const showDataButton = document.getElementById("showDataButton");
 const dataSection = document.getElementById("dataSection");
 const lossScreen = document.getElementById("lossScreen");
 const returnToStartButton = document.getElementById("returnToStartButton");
+const winScreen = document.getElementById("winScreen");
+const winMessage = document.getElementById("winMessage");
+const continueButton = document.getElementById("continueButton");
+const returnHomeButton = document.getElementById("returnHomeButton");
 
 startButton.addEventListener("click", () => {
   playerName = playerNameInput.value.trim();
@@ -68,10 +72,16 @@ startButton.addEventListener("click", () => {
     return;
   }
   lossScreen.style.display = "none";
+  winScreen.style.display = "none";
   startGame();
 });
 
 returnToStartButton.addEventListener("click", returnToStartScreen);
+continueButton.addEventListener("click", () => {
+  winScreen.style.display = "none";
+  startGame();
+});
+returnHomeButton.addEventListener("click", returnToStartScreen);
 
 showIngredientsButton.addEventListener("click", () => {
   ingredientListEl.style.display = ingredientListEl.style.display === "none" ? "block" : "none";
@@ -137,9 +147,16 @@ function checkWinCondition() {
 
   if (allMatched) {
     clearInterval(timerInterval);
-    statusEl.textContent = "🎉 Congratulations! You matched all the ingredients!";
     updatePlayerData(true);
+    showWinScreen();
   }
+}
+
+function showWinScreen() {
+  winMessage.textContent = `🎉 Congratulations! You correctly completed the ${selectedBowl.name} bowl!`;
+  winScreen.style.display = "block";
+  gameGridEl.innerHTML = "";
+  bowlNameEl.textContent = "";
 }
 
 function updatePlayerData(won) {
@@ -166,6 +183,7 @@ function showPlayerData() {
 
 function returnToStartScreen() {
   lossScreen.style.display = "none";
+  winScreen.style.display = "none";
   playerNameInput.value = "";
   bowlNameEl.textContent = "";
   ingredientListEl.innerHTML = "";
@@ -188,3 +206,4 @@ function shuffle(array) {
   }
   return array;
 }
+
