@@ -17,7 +17,7 @@ const bowls = [
   },
   {
     name: "Balboa",
-    ingredients: ["Brown Rice", "Sweet Potato", "Corn", "Avocado", "Pita Chips", "Feta", "Lime-Pickled Onion"]
+    ingredients: ["Brown Rice", "Sweet Potato", "Corn", "Avocado", "Pita Chips", "Feta", "Lime-Pickled Onions"]
   },
   {
     name: "Roots Bowl",
@@ -40,6 +40,7 @@ const bowls = [
     ingredients: ["Brown Rice", "Spinach", "Chickpeas", "Cucumbers", "Grape Tomatoes", "Red Onion", "Pita Chips", "Feta"]
   }
 ];
+
 
 let selectedBowl;
 let playerName = "";
