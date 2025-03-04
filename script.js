@@ -42,21 +42,36 @@ const bowls = [
 ];
 
 let selectedBowl;
+let playerName = "";
 let lives = 3;
 let timeRemaining = 60;
 let timerInterval;
+let playerData = JSON.parse(localStorage.getItem("playerData")) || {};
 
+const playerNameInput = document.getElementById("playerName");
 const bowlNameEl = document.getElementById("bowlName");
 const ingredientListEl = document.getElementById("ingredientList");
 const gameGridEl = document.getElementById("gameGrid");
 const statusEl = document.getElementById("status");
 const showIngredientsButton = document.getElementById("showIngredientsButton");
 const startButton = document.getElementById("startButton");
+const showDataButton = document.getElementById("showDataButton");
+const dataSection = document.getElementById("dataSection");
 
-startButton.addEventListener("click", startGame);
+startButton.addEventListener("click", () => {
+  playerName = playerNameInput.value.trim();
+  if (!playerName) {
+    alert("Please enter your name before starting!");
+    return;
+  }
+  startGame();
+});
+
 showIngredientsButton.addEventListener("click", () => {
   ingredientListEl.style.display = ingredientListEl.style.display === "none" ? "block" : "none";
 });
+
+showDataButton.addEventListener("click", showPlayerData);
 
 function startGame() {
   selectedBowl = bowls[Math.floor(Math.random() * bowls.length)];
@@ -68,8 +83,8 @@ function startGame() {
     ingredientListEl.appendChild(li);
   });
   ingredientListEl.style.display = "none";
-  
-const gridIngredients = Array.from(new Set(bowls.flatMap(bowl => bowl.ingredients))).sort();
+
+  const gridIngredients = Array.from(new Set(bowls.flatMap(bowl => bowl.ingredients))).sort();
 
   gameGridEl.innerHTML = "";
   gridIngredients.forEach(ingredient => {
@@ -90,6 +105,7 @@ const gridIngredients = Array.from(new Set(bowls.flatMap(bowl => bowl.ingredient
     if (timeRemaining <= 0) {
       clearInterval(timerInterval);
       statusEl.textContent = "⏰ Time's up! You lost.";
+      updatePlayerData(false);
     }
   }, 1000);
 }
@@ -105,6 +121,7 @@ function handleCardClick(card, ingredient) {
     if (lives <= 0) {
       clearInterval(timerInterval);
       statusEl.textContent = "❌ Game Over! You lost.";
+      updatePlayerData(false);
     }
   }
 }
@@ -117,7 +134,30 @@ function checkWinCondition() {
   if (allMatched) {
     clearInterval(timerInterval);
     statusEl.textContent = "🎉 Congratulations! You matched all the ingredients!";
+    updatePlayerData(true);
   }
+}
+
+function updatePlayerData(won) {
+  if (!playerName) return;
+  if (!playerData[playerName]) {
+    playerData[playerName] = { levelsCompleted: 0, bowls: [] };
+  }
+  if (won) {
+    playerData[playerName].levelsCompleted++;
+    playerData[playerName].bowls.push(selectedBowl.name);
+  }
+  localStorage.setItem("playerData", JSON.stringify(playerData));
+}
+
+function showPlayerData() {
+  dataSection.innerHTML = "<h2>Player Data</h2>";
+  for (const [name, data] of Object.entries(playerData)) {
+    const playerInfo = document.createElement("div");
+    playerInfo.innerHTML = `<strong>${name}</strong>: ${data.levelsCompleted} bowls completed<br>Bowls: ${data.bowls.join(", ")}`;
+    dataSection.appendChild(playerInfo);
+  }
+  dataSection.style.display = "block";
 }
 
 function shuffle(array) {
