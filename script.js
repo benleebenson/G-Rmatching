@@ -68,9 +68,8 @@ function startGame() {
     ingredientListEl.appendChild(li);
   });
   ingredientListEl.style.display = "none";
-
-  const allIngredients = Array.from(new Set(bowls.flatMap(bowl => bowl.ingredients)));
-  const gridIngredients = shuffle(allIngredients).slice(0, 12);
+  
+const gridIngredients = Array.from(new Set(bowls.flatMap(bowl => bowl.ingredients))).sort();
 
   gameGridEl.innerHTML = "";
   gridIngredients.forEach(ingredient => {
