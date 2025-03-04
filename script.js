@@ -57,6 +57,8 @@ const showIngredientsButton = document.getElementById("showIngredientsButton");
 const startButton = document.getElementById("startButton");
 const showDataButton = document.getElementById("showDataButton");
 const dataSection = document.getElementById("dataSection");
+const lossScreen = document.getElementById("lossScreen");
+const returnToStartButton = document.getElementById("returnToStartButton");
 
 startButton.addEventListener("click", () => {
   playerName = playerNameInput.value.trim();
@@ -64,8 +66,11 @@ startButton.addEventListener("click", () => {
     alert("Please enter your name before starting!");
     return;
   }
+  lossScreen.style.display = "none";
   startGame();
 });
+
+returnToStartButton.addEventListener("click", returnToStartScreen);
 
 showIngredientsButton.addEventListener("click", () => {
   ingredientListEl.style.display = ingredientListEl.style.display === "none" ? "block" : "none";
@@ -103,9 +108,8 @@ function startGame() {
     timeRemaining--;
     statusEl.textContent = `Lives: ${lives} | Time: ${timeRemaining}s`;
     if (timeRemaining <= 0) {
-      clearInterval(timerInterval);
-      statusEl.textContent = "⏰ Time's up! You lost.";
       updatePlayerData(false);
+      showLossScreen();
     }
   }, 1000);
 }
@@ -119,9 +123,8 @@ function handleCardClick(card, ingredient) {
     lives--;
     statusEl.textContent = `Lives: ${lives} | Time: ${timeRemaining}s`;
     if (lives <= 0) {
-      clearInterval(timerInterval);
-      statusEl.textContent = "❌ Game Over! You lost.";
       updatePlayerData(false);
+      showLossScreen();
     }
   }
 }
@@ -158,6 +161,23 @@ function showPlayerData() {
     dataSection.appendChild(playerInfo);
   }
   dataSection.style.display = "block";
+}
+
+function returnToStartScreen() {
+  lossScreen.style.display = "none";
+  playerNameInput.value = "";
+  bowlNameEl.textContent = "";
+  ingredientListEl.innerHTML = "";
+  gameGridEl.innerHTML = "";
+  statusEl.textContent = "";
+  dataSection.style.display = "none";
+}
+
+function showLossScreen() {
+  clearInterval(timerInterval);
+  lossScreen.style.display = "block";
+  gameGridEl.innerHTML = "";
+  bowlNameEl.textContent = "";
 }
 
 function shuffle(array) {
